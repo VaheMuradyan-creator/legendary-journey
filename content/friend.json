@@ -1,0 +1,72 @@
+{
+  "slug": "friend",
+  "name": "Friend's Full Name",
+  "subtitle": "Animation portfolio — best class and personal work",
+  "accent": "#5eb8d4",
+  "coverImage": "",
+  "drawingSections": [
+    {
+      "id": "character-design",
+      "title": "Character Design",
+      "items": [
+        {
+          "title": "Example — replace with real title",
+          "media": "Digital",
+          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
+        }
+      ]
+    },
+    {
+      "id": "drawing-painting",
+      "title": "Drawing & Painting",
+      "items": [
+        {
+          "title": "Example drawing",
+          "media": "Graphite",
+          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
+        }
+      ]
+    },
+    {
+      "id": "backgrounds-props",
+      "title": "Backgrounds & Props",
+      "items": []
+    },
+    {
+      "id": "digital-illustration",
+      "title": "Digital Illustration",
+      "items": []
+    },
+    {
+      "id": "more-work",
+      "title": "More Original Work",
+      "subtitle": "Friend: copy structure from mine.json and add 10+ works total.",
+      "items": []
+    }
+  ],
+  "animations": [
+    {
+      "title": "Main Film",
+      "media": "Digital",
+      "description": "Project description for the teacher.",
+      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK",
+      "still": "",
+      "progress": {
+        "description": "Process write-up and storyboard for at least one film.",
+        "storyboard": "PASTE_STORYBOARD_LINK"
+      }
+    },
+    {
+      "title": "Second Animation",
+      "media": "Digital",
+      "description": "Description.",
+      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK"
+    },
+    {
+      "title": "Third Animation",
+      "media": "Digital",
+      "description": "Description.",
+      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK"
+    }
+  ]
+}
