@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Portfolio } from "@/lib/portfolio";
 import { countDrawingWorks } from "@/lib/portfolio";
 import { ArtworkCard } from "@/components/ArtworkCard";
@@ -19,12 +18,6 @@ export function PortfolioView({ portfolio }: { portfolio: Portfolio }) {
         }}
       >
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-16 md:py-24">
-          <Link
-            href="/"
-            className="w-fit text-sm text-muted transition hover:text-foreground"
-          >
-            ← All portfolios
-          </Link>
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
             Animation Portfolio
           </p>

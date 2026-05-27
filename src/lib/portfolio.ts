@@ -1,5 +1,4 @@
-import mine from "@/content/mine.json";
-import friend from "@/content/friend.json";
+import portfolioData from "@/content/mine.json";
 
 export type ArtworkItem = {
   title: string;
@@ -46,17 +45,8 @@ export type Portfolio = {
   animations: AnimationItem[];
 };
 
-const portfolios: Record<string, Portfolio> = {
-  mine: mine as Portfolio,
-  friend: friend as Portfolio,
-};
-
-export function getPortfolio(slug: string): Portfolio | undefined {
-  return portfolios[slug];
-}
-
-export function getAllPortfolios(): Portfolio[] {
-  return Object.values(portfolios);
+export function getPortfolio(): Portfolio {
+  return portfolioData as Portfolio;
 }
 
 export function countDrawingWorks(portfolio: Portfolio): number {

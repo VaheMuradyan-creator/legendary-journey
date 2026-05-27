@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Animation Class Portfolios",
-  description: "Student animation portfolios — design, drawing, and film work.",
+  title: "Animation Portfolio",
+  description: "Animation class portfolio — design, drawing, and film work.",
 };
 
 export default function RootLayout({
