@@ -64,12 +64,6 @@ export function ArtStructureView({ portfolio }: { portfolio: ArtStructurePortfol
       </header>
 
       <main id="work" className="relative">
-        {portfolio.sections.length === 0 && (
-          <p className="mx-auto max-w-6xl px-6 py-20 text-muted">
-            Artworks will appear here when you add them in Portfolio Studio → Art structure.
-          </p>
-        )}
-
         {portfolio.sections.map((section, sectionIndex) => (
           <section
             key={section.id}
