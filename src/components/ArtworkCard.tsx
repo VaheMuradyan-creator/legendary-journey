@@ -1,50 +1,62 @@
+"use client";
+
 import type { ArtworkItem } from "@/lib/portfolio";
-import { DriveImage } from "@/components/DriveImage";
+import { BlendImage } from "@/components/BlendImage";
 import { isPlaceholderMedia } from "@/lib/drive";
 
-export function ArtworkCard({ item }: { item: ArtworkItem }) {
+export function ArtworkCard({ item, index = 0 }: { item: ArtworkItem; index?: number }) {
   const raw = item.images?.length ? item.images : item.image ? [item.image] : [];
   const images = raw.filter((s) => !isPlaceholderMedia(s));
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-card-border bg-card transition hover:border-accent-muted">
-      {images.length === 0 && (
-        <div className="flex aspect-[4/3] items-center justify-center bg-black/30 p-6 text-center text-sm text-muted">
-          Add a Google Drive link in content JSON
-        </div>
-      )}
-      {images.length > 0 && (
+    <article
+      className="gallery-item group"
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      <div className="relative rounded-3xl bg-card/40 p-1 backdrop-blur-sm transition duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_28px_60px_-20px_rgba(255,107,74,0.35)]">
         <div
-          className={
-            images.length > 1
-              ? "grid grid-cols-2 gap-0.5 bg-card-border"
-              : "relative aspect-[4/3] w-full bg-black/40"
-          }
-        >
-          {images.map((src, i) => (
-            <div
-              key={`${item.title}-${i}`}
-              className={
-                images.length > 1
-                  ? "relative aspect-square"
-                  : "relative aspect-[4/3] w-full"
-              }
-            >
-              <DriveImage
-                src={src}
-                alt={`${item.title}${images.length > 1 ? ` ${i + 1}` : ""}`}
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      )}
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
-        <p className="text-sm text-accent">{item.media}</p>
-        {item.description && (
-          <p className="text-sm leading-relaxed text-muted">{item.description}</p>
+          className="absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, transparent), transparent 50%, color-mix(in srgb, var(--accent-cool) 30%, transparent))",
+          }}
+        />
+
+        {images.length === 0 && (
+          <div className="relative flex aspect-[4/3] items-center justify-center rounded-[1.35rem] bg-black/40 p-8 text-center text-sm text-muted">
+            Add Google Drive link in content/mine.json
+          </div>
         )}
+
+        {images.length === 1 && (
+          <div className="relative overflow-visible rounded-[1.35rem]">
+            <BlendImage src={images[0]} alt={item.title} aspectClass="aspect-[4/3]" />
+          </div>
+        )}
+
+        {images.length > 1 && (
+          <div className="grid grid-cols-2 gap-1 rounded-[1.35rem] p-1">
+            {images.map((src, i) => (
+              <div key={`${item.title}-${i}`} className="overflow-visible rounded-2xl">
+                <BlendImage
+                  src={src}
+                  alt={`${item.title} ${i + 1}`}
+                  aspectClass="aspect-square"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="relative z-10 flex flex-col gap-2 px-5 pb-5 pt-4">
+          <h3 className="font-display text-xl font-bold tracking-tight">{item.title}</h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-glow)]">
+            {item.media}
+          </p>
+          {item.description && (
+            <p className="text-sm leading-relaxed text-muted">{item.description}</p>
+          )}
+        </div>
       </div>
     </article>
   );

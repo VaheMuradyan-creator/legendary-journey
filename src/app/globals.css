@@ -1,33 +1,191 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0c0b10;
-  --foreground: #f4f0ea;
-  --accent: #e8a838;
-  --accent-muted: #8b6f3a;
-  --card: #16141d;
-  --card-border: #2a2635;
-  --muted: #9a94a8;
+  --background: #07060d;
+  --background-soft: #0f0d18;
+  --foreground: #f8f4ef;
+  --accent: #ff6b4a;
+  --accent-glow: #ffb347;
+  --accent-cool: #6ec8ff;
+  --card: rgba(18, 16, 28, 0.72);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --muted: #a39bb8;
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-muted: var(--accent-muted);
+  --color-accent-glow: var(--accent-glow);
+  --color-accent-cool: var(--accent-cool);
   --color-card: var(--card);
   --color-card-border: var(--card-border);
   --color-muted: var(--muted);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-syne);
+  --font-body: var(--font-outfit);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* Cinematic page atmosphere */
+.page-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, color-mix(in srgb, var(--accent-cool) 14%, transparent), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, color-mix(in srgb, var(--accent-glow) 10%, transparent), transparent 60%),
+    var(--background);
+}
+
+.page-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: var(--grain);
+}
+
+/* 3D display title — animator poster feel */
+.text-3d {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  transform: perspective(900px) rotateX(6deg);
+  transform-origin: center bottom;
+  text-shadow:
+    0 0.02em 0 color-mix(in srgb, var(--accent-glow) 80%, #fff),
+    0 0.06em 0 color-mix(in srgb, var(--accent) 60%, transparent),
+    0 0.12em 0 #c44a2e,
+    0 0.2em 0 #8a3018,
+    0 0.35em 0.15em rgba(0, 0, 0, 0.45),
+    0 0.6em 0.35em rgba(0, 0, 0, 0.55),
+    0 1em 1.2em rgba(0, 0, 0, 0.65);
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* Image melts into page via blur halo + radial mask */
+.blend-image-wrap {
+  isolation: isolate;
+}
+
+.blend-image-ambient {
+  inset: -18%;
+  filter: blur(56px) saturate(1.35);
+  opacity: 0.75;
+  transform: scale(1.15);
+}
+
+.blend-image-vignette {
+  background:
+    radial-gradient(ellipse 100% 85% at 50% 45%, transparent 35%, var(--background) 100%),
+    linear-gradient(to bottom, var(--background) 0%, transparent 18%, transparent 82%, var(--background) 100%),
+    linear-gradient(to right, var(--background) 0%, transparent 14%, transparent 86%, var(--background) 100%);
+  opacity: 0.85;
+}
+
+.blend-image-core {
+  -webkit-mask-image: radial-gradient(ellipse 88% 78% at 50% 48%, #000 50%, transparent 100%);
+  mask-image: radial-gradient(ellipse 88% 78% at 50% 48%, #000 50%, transparent 100%);
+}
+
+/* Horizontal scroll gallery */
+.gallery-track {
+  display: flex;
+  gap: 1.75rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.5rem;
+  padding: 2rem 1.5rem 3rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 50%, transparent) transparent;
+}
+
+.gallery-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.gallery-track::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 999px;
+}
+
+.gallery-item {
+  flex: 0 0 min(85vw, 420px);
+  scroll-snap-align: center;
+}
+
+@media (min-width: 768px) {
+  .gallery-item {
+    flex: 0 0 min(42vw, 480px);
+  }
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  transform-origin: left;
+  transition: transform 0.08s linear;
+}
+
+/* Bouncing scroll cue */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-cue {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes float-orb {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(12px, -18px) scale(1.05);
+  }
+}
+
+.animate-float-orb {
+  animation: float-orb 8s ease-in-out infinite;
+}
+
+/* Section snap on vertical scroll */
+.scroll-story > section {
+  scroll-snap-align: start;
+}
+
+.scroll-story {
+  scroll-snap-type: y proximity;
 }

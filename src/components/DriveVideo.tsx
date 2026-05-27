@@ -7,7 +7,7 @@ type DriveVideoProps = {
 
 export function DriveVideo({ src, title }: DriveVideoProps) {
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-card-border bg-black">
+    <div className="relative aspect-video w-full overflow-hidden bg-black/80">
       <iframe
         src={driveVideoEmbedUrl(src)}
         title={title}

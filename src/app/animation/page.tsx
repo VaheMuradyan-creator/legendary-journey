@@ -8,13 +8,13 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(): Promise<Metadata> {
   const data = await loadPortfolio();
   return {
-    title: `${data.name} — Animation Portfolio`,
-    description: data.subtitle,
+    title: `${data.name} — Animation`,
+    description: "Animation and film portfolio work.",
   };
 }
 
-export default async function HomePage() {
+export default async function AnimationPage() {
   const data = await loadPortfolio();
   const portfolio = toPortfolio(data);
-  return <PortfolioView portfolio={portfolio} />;
+  return <PortfolioView portfolio={portfolio} mode="animation" />;
 }

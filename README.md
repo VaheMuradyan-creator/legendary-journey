@@ -1,74 +1,67 @@
 # Animation Class Portfolio
 
-Single portfolio site for your animation class final. Edit all content in **`content/mine.json`**.
+Portfolio for **Vahe Muradyan**.
 
-- **Live site:** `/` (home is your full portfolio)
+## Public pages
 
-Class checklist (from `Mine/instructions.Md`):
+| URL | Content |
+|-----|---------|
+| `/` | Animation class portfolio (10 works + 3 films) |
+| `/art-structure` | Art Structure class — 7 works, material groups, 4 artist statements |
+| `/animation` | Animation films only |
 
-- Cover with full name + “Animation Portfolio”
-- **10+** original design/drawing works (labeled with title + media)
-- **3+** animations, with **one** including progress (storyboard, BTS, description)
-- Clean sections by type (character, drawing, backgrounds, digital, etc.)
+## Private editor: Portfolio Studio
+
+Bookmark **`/studio/login`** (replaces old `/subpage`).
+
+| URL | Purpose |
+|-----|---------|
+| `/studio` | **Portfolio Studio** hub |
+| `/studio/art-structure` | Edit Art Structure portfolio |
+| `/studio/animation` | Edit animation films |
+
+Set `ADMIN_PASSWORD` and `SESSION_SECRET` on Vercel and in `.env.local`.
+
+## Saves survive deploys
+
+1. Vercel → **Storage** → **Blob** → Create  
+2. Redeploy  
+3. Save once in Portfolio Studio  
+
+Live content stays in Blob; git pushes only update code.
 
 ---
 
-## Google Drive: images & videos
+## Art Structure requirements
 
-Keep files in Google Drive. The site stores **links** in `content/mine.json`, not the files themselves.
+From `Mine/Art_Structure_instructions.md`:
 
-1. Share each file: **Anyone with the link** → **Viewer**
-2. Paste the share link into `image`, `images`, `video`, `still`, or `storyboard` in `content/mine.json`
-3. Replace the **same** file in Drive → same link updates on the site
-4. Upload a **new** file → paste the new link in JSON and push to Git
-
-After JSON changes: `git push` → Vercel redeploys.
+- Cover: name + **Art Structure Portfolio** + cover image  
+- **7** artworks (title, **year**, media)  
+- Full-view image + **detail** images  
+- Grouped by **material/theme** (drawing, painting, etc.)  
+- **4 artist's statements** (slots 1–4 flagged in studio)  
+- Optional process / sketchbook images  
 
 ---
 
-## Local development
+## Local dev
 
 ```powershell
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
 ```powershell
 npm run build
 ```
 
----
-
 ## Git + Vercel
 
-Repo: [legendary-journey](https://github.com/VaheMuradyan-creator/legendary-journey)
-
-If `git remote add origin` says **remote origin already exists**, point it at your repo:
-
 ```powershell
-git remote set-url origin https://github.com/VaheMuradyan-creator/legendary-journey.git
-git remote -v
-git push -u origin main
-```
-
-First-time setup:
-
-```powershell
-cd "c:\Users\Gugo3\Desktop\Projects\Animation Portfalio website"
 git add .
-git commit -m "Single animation portfolio"
-git push -u origin main
+git commit -m "Portfolio Studio, Art Structure layout, Blob persistence"
+git push origin main
 ```
 
-On [vercel.com](https://vercel.com), import **legendary-journey** and deploy. Each push to `main` updates production.
-
----
-
-## Customization
-
-| File | Purpose |
-|------|---------|
-| `content/mine.json` | Name, artworks, animations, Drive links |
-| `src/lib/drive.ts` | Google Drive URL helpers |
+Vercel redeploys automatically on push to `main`.

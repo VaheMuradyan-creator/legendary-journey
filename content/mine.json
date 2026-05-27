@@ -1,111 +1,206 @@
 {
   "slug": "mine",
-  "name": "Your Full Name",
-  "subtitle": "Animator · character design · film & motion",
-  "accent": "#e8a838",
+  "name": "Vahe Muradyan",
+  "subtitle": "Animator · character design · story & motion",
+  "accent": "#ff6b4a",
   "coverImage": "",
-  "drawingSections": [
+  "artStructure": {
+    "portfolioTitle": "Art Structure Portfolio",
+    "coverImage": "",
+    "works": [
+      {
+        "id": "as-01",
+        "title": "Artwork 1",
+        "date": "",
+        "media": "",
+        "category": "drawing",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-02",
+        "title": "Artwork 2",
+        "date": "",
+        "media": "",
+        "category": "painting",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-03",
+        "title": "Artwork 3",
+        "date": "",
+        "media": "",
+        "category": "mixed-media",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-04",
+        "title": "Artwork 4",
+        "date": "",
+        "media": "",
+        "category": "digital",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-05",
+        "title": "Artwork 5",
+        "date": "",
+        "media": "",
+        "category": "sculpture-3d",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-06",
+        "title": "Artwork 6",
+        "date": "",
+        "media": "",
+        "category": "sketchbook-process",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      },
+      {
+        "id": "as-07",
+        "title": "Artwork 7",
+        "date": "",
+        "media": "",
+        "category": "other",
+        "image": "",
+        "images": [],
+        "processImages": [],
+        "artistStatement": ""
+      }
+    ]
+  },
+  "works": [
     {
-      "id": "character-design",
-      "title": "Character Design",
-      "subtitle": "Original characters, model sheets, and character cards.",
-      "items": [
-        {
-          "title": "Character Name — Model Sheet",
-          "media": "Digital · Procreate",
-          "description": "Turnaround, expressions, and color palette.",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        },
-        {
-          "title": "Character Card",
-          "media": "Colored pencil & ink",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        }
-      ]
+      "id": "work-01",
+      "title": "Artwork 1",
+      "media": "",
+      "category": "character-design",
+      "description": "",
+      "image": ""
     },
     {
-      "id": "drawing-painting",
-      "title": "Drawing & Painting",
-      "items": [
-        {
-          "title": "Life Drawing Study",
-          "media": "Graphite on paper",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        },
-        {
-          "title": "Animator's Desk Drawing",
-          "media": "Ink",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        }
-      ]
+      "id": "work-02",
+      "title": "Artwork 2",
+      "media": "",
+      "category": "character-design",
+      "description": "",
+      "image": ""
     },
     {
-      "id": "backgrounds-props",
-      "title": "Backgrounds & Props",
-      "items": [
-        {
-          "title": "Environment Painting",
-          "media": "Digital",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        }
-      ]
+      "id": "work-03",
+      "title": "Artwork 3",
+      "media": "",
+      "category": "drawing-painting",
+      "description": "",
+      "image": ""
     },
     {
-      "id": "digital-illustration",
-      "title": "Digital Illustration",
-      "items": [
-        {
-          "title": "Show Pitch Poster",
-          "media": "Digital illustration",
-          "description": "Original show concept and poster design.",
-          "image": "PASTE_GOOGLE_DRIVE_SHARE_LINK_OR_FILE_ID"
-        }
-      ]
+      "id": "work-04",
+      "title": "Artwork 4",
+      "media": "",
+      "category": "drawing-painting",
+      "description": "",
+      "image": ""
     },
     {
-      "id": "more-work",
-      "title": "More Original Work",
-      "subtitle": "Add pieces until you have at least 10 total works across all sections.",
-      "items": [
-        {
-          "title": "Sketch Sheet (counts as one example)",
-          "media": "Mixed media",
-          "images": [
-            "PASTE_DRIVE_LINK_1",
-            "PASTE_DRIVE_LINK_2",
-            "PASTE_DRIVE_LINK_3"
-          ]
-        }
-      ]
+      "id": "work-05",
+      "title": "Artwork 5",
+      "media": "",
+      "category": "backgrounds-props",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "work-06",
+      "title": "Artwork 6",
+      "media": "",
+      "category": "backgrounds-props",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "work-07",
+      "title": "Artwork 7",
+      "media": "",
+      "category": "digital-illustration",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "work-08",
+      "title": "Artwork 8",
+      "media": "",
+      "category": "digital-illustration",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "work-09",
+      "title": "Artwork 9",
+      "media": "",
+      "category": "more-work",
+      "description": "",
+      "image": ""
+    },
+    {
+      "id": "work-10",
+      "title": "Artwork 10",
+      "media": "",
+      "category": "more-work",
+      "description": "",
+      "image": "",
+      "images": []
     }
   ],
   "animations": [
     {
-      "title": "Animated Short — Finished Film",
-      "media": "Digital animation · Toon Boom / Blender / etc.",
-      "description": "One-sentence logline, then 2–3 sentences on story, tools, and what you learned.",
-      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK",
-      "still": "PASTE_STILL_FRAME_IMAGE_LINK",
+      "id": "anim-01",
+      "title": "Animation 1 — Main Film",
+      "media": "",
+      "description": "",
+      "video": "",
+      "still": "",
       "progress": {
         "title": "Behind the scenes",
-        "description": "How you planned, boarded, and animated this piece. Mention timeline and challenges.",
-        "storyboard": "PASTE_STORYBOARD_IMAGE_LINK",
-        "images": ["PASTE_PROGRESS_PHOTO_1", "PASTE_PROGRESS_PHOTO_2"],
+        "description": "",
+        "storyboard": "",
+        "images": [],
         "video": ""
       }
     },
     {
-      "title": "Walk Cycle",
-      "media": "Digital",
-      "description": "Exercise focusing on weight and timing.",
-      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK",
-      "still": "PASTE_STILL_IF_YOU_WANT"
+      "id": "anim-02",
+      "title": "Animation 2",
+      "media": "",
+      "description": "",
+      "video": "",
+      "still": ""
     },
     {
-      "title": "Animation Exercise / Message Film",
-      "media": "Digital",
-      "description": "Another strong piece from class.",
-      "video": "PASTE_GOOGLE_DRIVE_VIDEO_SHARE_LINK"
+      "id": "anim-03",
+      "title": "Animation 3",
+      "media": "",
+      "description": "",
+      "video": "",
+      "still": ""
     }
   ]
 }
