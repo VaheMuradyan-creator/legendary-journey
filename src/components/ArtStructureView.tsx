@@ -1,7 +1,7 @@
 import type { ArtStructurePortfolio } from "@/lib/portfolio";
 import {
   ARTIST_STATEMENTS_REQUIRED,
-  ART_STRUCTURE_SLOT_COUNT,
+  ART_STRUCTURE_MIN_ARTWORKS,
 } from "@/lib/art-structure-categories";
 import { ArtStructureCard } from "@/components/ArtStructureCard";
 import { BlendImage } from "@/components/BlendImage";
@@ -35,14 +35,14 @@ export function ArtStructureView({ portfolio }: { portfolio: ArtStructurePortfol
           <ScrollReveal delay={120}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
               Best work grouped by material and theme — full views, detail shots, and
-              artist&apos;s statements. Minimum {ART_STRUCTURE_SLOT_COUNT} artworks,{" "}
-              {ARTIST_STATEMENTS_REQUIRED} with writing.
+              artist&apos;s statements. Class minimum: {ART_STRUCTURE_MIN_ARTWORKS}{" "}
+              artworks, {ARTIST_STATEMENTS_REQUIRED} with writing.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
               <span className="rounded-full border border-white/10 bg-card px-4 py-2 backdrop-blur-md">
-                {portfolio.filledCount} / {ART_STRUCTURE_SLOT_COUNT} artworks
+                {portfolio.filledCount} artworks on site
               </span>
               <span className="rounded-full border border-white/10 bg-card px-4 py-2 backdrop-blur-md">
                 {portfolio.statementCount} / {ARTIST_STATEMENTS_REQUIRED} artist&apos;s

@@ -40,5 +40,5 @@ export const ART_STRUCTURE_CATEGORIES = [
 export type ArtStructureCategoryId =
   (typeof ART_STRUCTURE_CATEGORIES)[number]["id"];
 
-export const ART_STRUCTURE_SLOT_COUNT = 7;
+export const ART_STRUCTURE_MIN_ARTWORKS = 7;
 export const ARTIST_STATEMENTS_REQUIRED = 4;

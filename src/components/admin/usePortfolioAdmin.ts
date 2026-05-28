@@ -8,14 +8,16 @@ export function usePortfolioAdmin() {
   const [status, setStatus] = useState("");
   const [saving, setSaving] = useState(false);
   const [storageNote, setStorageNote] = useState("");
+  const [loaded, setLoaded] = useState(false);
 
   const load = useCallback(async () => {
     const [portfolioRes, storageRes] = await Promise.all([
-      fetch("/api/portfolio"),
-      fetch("/api/portfolio/storage"),
+      fetch("/api/portfolio", { cache: "no-store" }),
+      fetch("/api/portfolio/storage", { cache: "no-store" }),
     ]);
     if (portfolioRes.ok) {
       setData((await portfolioRes.json()) as PortfolioData);
+      setLoaded(true);
     }
     if (storageRes.ok) {
       const info = (await storageRes.json()) as { message: string };
@@ -42,9 +44,11 @@ export function usePortfolioAdmin() {
       setStatus(err.error ?? "Save failed — check Blob is enabled on Vercel.");
       return;
     }
-    setData((await res.json()) as PortfolioData);
-    setStatus("Saved! Your changes persist after git push / redeploy.");
-    await load();
+    const saved = (await res.json()) as PortfolioData;
+    setData(saved);
+    setStatus(
+      "Saved! When you come back, your text and links will still be here."
+    );
   }
 
   return {
@@ -56,5 +60,6 @@ export function usePortfolioAdmin() {
     save,
     storageNote,
     load,
+    loaded,
   };
 }

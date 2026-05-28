@@ -3,7 +3,6 @@
 import {
   ARTIST_STATEMENTS_REQUIRED,
   ART_STRUCTURE_CATEGORIES,
-  ART_STRUCTURE_SLOT_COUNT,
 } from "@/lib/art-structure-categories";
 import { WORK_CATEGORIES } from "@/lib/categories";
 import type {
@@ -12,18 +11,19 @@ import type {
   ArtStructureWork,
   WorkItem,
 } from "@/lib/portfolio";
-import { ANIMATION_SLOT_COUNT, WORK_SLOT_COUNT } from "@/lib/portfolio";
 
 export function WorkEditor({
   index,
   work,
   onChange,
-  onClear,
+  onRemove,
+  kind = "image",
 }: {
   index: number;
   work: WorkItem;
   onChange: (patch: Partial<WorkItem>) => void;
-  onClear: () => void;
+  onRemove: () => void;
+  kind?: "image" | "artwork";
 }) {
   const extraImages = (work.images ?? []).join("\n");
 
@@ -31,15 +31,14 @@ export function WorkEditor({
     <section className="mb-6 rounded-2xl border border-white/10 bg-[#12101c] p-6">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-display text-lg font-bold">
-          Artwork slot {index + 1}{" "}
-          <span className="text-[#a39bb8]">/ {WORK_SLOT_COUNT}</span>
+          {kind === "image" ? "Picture" : "Artwork"} {index + 1}
         </h2>
         <button
           type="button"
-          onClick={onClear}
+          onClick={onRemove}
           className="text-sm text-red-400 hover:underline"
         >
-          Clear slot
+          Remove
         </button>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
@@ -105,13 +104,13 @@ export function AnimationEditor({
   anim,
   onChange,
   onProgressChange,
-  onClear,
+  onRemove,
 }: {
   index: number;
   anim: AnimationItem;
   onChange: (patch: Partial<AnimationItem>) => void;
   onProgressChange: (patch: Partial<NonNullable<AnimationItem["progress"]>>) => void;
-  onClear: () => void;
+  onRemove: () => void;
 }) {
   const progress = anim.progress ?? {
     title: "Behind the scenes",
@@ -126,20 +125,19 @@ export function AnimationEditor({
     <section className="mb-6 rounded-2xl border border-white/10 bg-[#12101c] p-6">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-display text-lg font-bold">
-          Animation slot {index + 1}{" "}
-          <span className="text-[#a39bb8]">/ {ANIMATION_SLOT_COUNT}</span>
+          Film {index + 1}
           {index === 0 && (
             <span className="ml-2 text-xs font-normal text-[#6ec8ff]">
-              (fill progress for class BTS)
+              (add progress / BTS for class)
             </span>
           )}
         </h2>
         <button
           type="button"
-          onClick={onClear}
+          onClick={onRemove}
           className="text-sm text-red-400 hover:underline"
         >
-          Clear slot
+          Remove
         </button>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
@@ -252,35 +250,34 @@ export function ArtStructureWorkEditor({
   index,
   work,
   onChange,
-  onClear,
+  onRemove,
+  showStatementHint,
 }: {
   index: number;
   work: ArtStructureWork;
   onChange: (patch: Partial<ArtStructureWork>) => void;
-  onClear: () => void;
+  onRemove: () => void;
+  showStatementHint?: boolean;
 }) {
   const details = (work.images ?? []).join("\n");
   const process = (work.processImages ?? []).join("\n");
-  const needsStatement = index < ARTIST_STATEMENTS_REQUIRED;
-
   return (
     <section className="mb-6 rounded-2xl border border-white/10 bg-[#12101c] p-6">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-display text-lg font-bold">
-          Artwork {index + 1}{" "}
-          <span className="text-[#a39bb8]">/ {ART_STRUCTURE_SLOT_COUNT}</span>
-          {needsStatement && (
+          Artwork {index + 1}
+          {showStatementHint && (
             <span className="ml-2 text-xs font-normal text-[#6ec8ff]">
-              — artist&apos;s statement required
+              — artist&apos;s statement (class needs {ARTIST_STATEMENTS_REQUIRED})
             </span>
           )}
         </h2>
         <button
           type="button"
-          onClick={onClear}
+          onClick={onRemove}
           className="text-sm text-red-400 hover:underline"
         >
-          Clear slot
+          Remove
         </button>
       </div>
       <div className="grid gap-4 md:grid-cols-2">

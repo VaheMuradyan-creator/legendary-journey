@@ -1,7 +1,8 @@
 import { WORK_CATEGORIES, type WorkCategoryId } from "@/lib/categories";
 import {
   ART_STRUCTURE_CATEGORIES,
-  ART_STRUCTURE_SLOT_COUNT,
+  ARTIST_STATEMENTS_REQUIRED,
+  ART_STRUCTURE_MIN_ARTWORKS,
   type ArtStructureCategoryId,
 } from "@/lib/art-structure-categories";
 import { isPlaceholderMedia } from "@/lib/drive";
@@ -91,13 +92,18 @@ export type ArtStructurePortfolio = {
   statementCount: number;
 };
 
-export const WORK_SLOT_COUNT = 10;
-export const ANIMATION_SLOT_COUNT = 3;
+/** Class minimums (recommendations — you can add more). */
+export const ANIMATION_MIN_ARTWORKS = 10;
+export const ANIMATION_MIN_FILMS = 3;
 
-export function createEmptyWork(index: number): WorkItem {
+export function generateItemId(prefix: string): string {
+  return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+export function createEmptyWork(): WorkItem {
   return {
-    id: `work-${String(index + 1).padStart(2, "0")}`,
-    title: `Artwork ${index + 1}`,
+    id: generateItemId("work"),
+    title: "",
     media: "",
     category: "character-design",
     description: "",
@@ -105,12 +111,12 @@ export function createEmptyWork(index: number): WorkItem {
   };
 }
 
-export function createEmptyArtStructureWork(index: number): ArtStructureWork {
-  const categories = ART_STRUCTURE_CATEGORIES;
-  const category = categories[index % categories.length].id;
+export function createEmptyArtStructureWork(
+  category: ArtStructureCategoryId = "drawing"
+): ArtStructureWork {
   return {
-    id: `as-${String(index + 1).padStart(2, "0")}`,
-    title: `Artwork ${index + 1}`,
+    id: generateItemId("as"),
+    title: "",
     date: "",
     media: "",
     category,
@@ -125,16 +131,14 @@ export function createEmptyArtStructure(): ArtStructureData {
   return {
     portfolioTitle: "Art Structure Portfolio",
     coverImage: "",
-    works: Array.from({ length: ART_STRUCTURE_SLOT_COUNT }, (_, i) =>
-      createEmptyArtStructureWork(i)
-    ),
+    works: [],
   };
 }
 
-export function createEmptyAnimation(index: number): AnimationItem {
+export function createEmptyAnimation(): AnimationItem {
   return {
-    id: `anim-${String(index + 1).padStart(2, "0")}`,
-    title: `Animation ${index + 1}`,
+    id: generateItemId("anim"),
+    title: "",
     media: "",
     description: "",
     video: "",
@@ -149,31 +153,40 @@ export function createEmptyAnimation(index: number): AnimationItem {
   };
 }
 
+/** Keeps every saved item — only fills missing ids, never deletes or caps count. */
 export function normalizePortfolio(data: PortfolioData): PortfolioData {
-  const works = [...(data.works ?? [])];
-  while (works.length < WORK_SLOT_COUNT) {
-    works.push(createEmptyWork(works.length));
-  }
-
-  const animations = [...(data.animations ?? [])];
-  while (animations.length < ANIMATION_SLOT_COUNT) {
-    animations.push(createEmptyAnimation(animations.length));
-  }
-
   const artStructure = data.artStructure ?? createEmptyArtStructure();
-  const asWorks = [...(artStructure.works ?? [])];
-  while (asWorks.length < ART_STRUCTURE_SLOT_COUNT) {
-    asWorks.push(createEmptyArtStructureWork(asWorks.length));
-  }
 
   return {
     ...data,
-    works: works.slice(0, WORK_SLOT_COUNT),
-    animations: animations.slice(0, ANIMATION_SLOT_COUNT),
+    slug: data.slug ?? "mine",
+    name: data.name ?? "",
+    subtitle: data.subtitle ?? "",
+    accent: data.accent ?? "#ff6b4a",
+    coverImage: data.coverImage ?? "",
+    works: (data.works ?? []).map((w) => ({
+      ...createEmptyWork(),
+      ...w,
+      id: w.id || generateItemId("work"),
+    })),
+    animations: (data.animations ?? []).map((a) => ({
+      ...createEmptyAnimation(),
+      ...a,
+      id: a.id || generateItemId("anim"),
+      progress: {
+        ...createEmptyAnimation().progress!,
+        ...a.progress,
+      },
+    })),
     artStructure: {
-      ...artStructure,
-      portfolioTitle: artStructure.portfolioTitle ?? "Art Structure Portfolio",
-      works: asWorks.slice(0, ART_STRUCTURE_SLOT_COUNT),
+      portfolioTitle:
+        artStructure.portfolioTitle ?? "Art Structure Portfolio",
+      coverImage: artStructure.coverImage ?? "",
+      works: (artStructure.works ?? []).map((w) => ({
+        ...createEmptyArtStructureWork(w.category),
+        ...w,
+        id: w.id || generateItemId("as"),
+      })),
     },
   };
 }
@@ -256,3 +269,5 @@ export function countDrawingWorks(portfolio: PortfolioData): number {
 export function countFilledAnimations(portfolio: PortfolioData): number {
   return portfolio.animations.filter(animationHasContent).length;
 }
+
+export { ART_STRUCTURE_MIN_ARTWORKS, ARTIST_STATEMENTS_REQUIRED };

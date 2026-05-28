@@ -1,5 +1,6 @@
 "use client";
 
+import { AddItemBar } from "@/components/admin/AddItemBar";
 import {
   ArtStructureSiteEditor,
   ArtStructureWorkEditor,
@@ -8,13 +9,13 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { usePortfolioAdmin } from "@/components/admin/usePortfolioAdmin";
 import {
   ARTIST_STATEMENTS_REQUIRED,
-  ART_STRUCTURE_SLOT_COUNT,
+  ART_STRUCTURE_MIN_ARTWORKS,
 } from "@/lib/art-structure-categories";
 import type { ArtStructureWork } from "@/lib/portfolio";
 import { createEmptyArtStructureWork } from "@/lib/portfolio";
 
 export function AdminArtStructure() {
-  const { data, setData, status, setStatus, saving, save, storageNote } =
+  const { data, setData, status, saving, save, storageNote } =
     usePortfolioAdmin();
 
   if (!data) {
@@ -25,6 +26,9 @@ export function AdminArtStructure() {
     );
   }
 
+  const count = data.artStructure.works.length;
+  let statementHintsLeft = ARTIST_STATEMENTS_REQUIRED;
+
   function updateWork(index: number, patch: Partial<ArtStructureWork>) {
     const works = [...data!.artStructure.works];
     works[index] = { ...works[index], ...patch };
@@ -34,20 +38,10 @@ export function AdminArtStructure() {
     });
   }
 
-  function clearWork(index: number) {
-    const works = [...data!.artStructure.works];
-    works[index] = createEmptyArtStructureWork(index);
-    setData({
-      ...data!,
-      artStructure: { ...data!.artStructure, works },
-    });
-    setStatus(`Cleared slot ${index + 1}. Click Save all.`);
-  }
-
   return (
     <AdminShell
       title="Art structure"
-      subtitle={`${ART_STRUCTURE_SLOT_COUNT} artworks · ${ARTIST_STATEMENTS_REQUIRED} artist's statements`}
+      subtitle={`${count} artworks — add or remove anytime`}
       active="/studio/art-structure"
       storageNote={storageNote}
       status={status}
@@ -65,15 +59,56 @@ export function AdminArtStructure() {
           })
         }
       />
-      {data.artStructure.works.map((work, index) => (
-        <ArtStructureWorkEditor
-          key={work.id}
-          index={index}
-          work={work}
-          onChange={(patch) => updateWork(index, patch)}
-          onClear={() => clearWork(index)}
-        />
-      ))}
+
+      <p className="mb-4 text-sm text-[#a39bb8]">
+        Class minimum: {ART_STRUCTURE_MIN_ARTWORKS} artworks and{" "}
+        {ARTIST_STATEMENTS_REQUIRED} artist&apos;s statements. You can add more than
+        seven if you want.
+      </p>
+
+      <AddItemBar
+        label="Add an artwork"
+        hint="Image, details, optional statement"
+        onAdd={() =>
+          setData({
+            ...data,
+            artStructure: {
+              ...data.artStructure,
+              works: [
+                ...data.artStructure.works,
+                createEmptyArtStructureWork(),
+              ],
+            },
+          })
+        }
+      />
+
+      {data.artStructure.works.length === 0 && (
+        <p className="mb-6 text-sm text-muted">No artworks yet — click Add above.</p>
+      )}
+
+      {data.artStructure.works.map((work, index) => {
+        const showHint = statementHintsLeft > 0;
+        if (showHint) statementHintsLeft -= 1;
+        return (
+          <ArtStructureWorkEditor
+            key={work.id}
+            index={index}
+            work={work}
+            showStatementHint={showHint}
+            onChange={(patch) => updateWork(index, patch)}
+            onRemove={() =>
+              setData({
+                ...data,
+                artStructure: {
+                  ...data.artStructure,
+                  works: data.artStructure.works.filter((_, i) => i !== index),
+                },
+              })
+            }
+          />
+        );
+      })}
     </AdminShell>
   );
 }
