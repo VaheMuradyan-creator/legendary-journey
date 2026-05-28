@@ -1,6 +1,7 @@
 import type { AnimationItem } from "@/lib/portfolio";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { BlendImage } from "@/components/BlendImage";
+import { ImageExpand } from "@/components/ImageExpand";
 import { DriveVideo } from "@/components/DriveVideo";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { isPlaceholderMedia } from "@/lib/drive";
@@ -56,11 +57,17 @@ export function AnimationBlock({
           <div className="flex flex-col gap-6">
             {item.still && !isPlaceholderMedia(item.still) && (
               <div className="overflow-visible">
-                <BlendImage
+                <ImageExpand
                   src={item.still}
                   alt={`${item.title} still`}
-                  aspectClass="aspect-video"
-                />
+                  className="rounded-2xl"
+                >
+                  <BlendImage
+                    src={item.still}
+                    alt={`${item.title} still`}
+                    aspectClass="aspect-video"
+                  />
+                </ImageExpand>
               </div>
             )}
             <p className="text-base leading-relaxed text-muted md:text-lg">
@@ -85,12 +92,18 @@ export function AnimationBlock({
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent-glow)]">
                       Storyboard
                     </p>
-                    <BlendImage
+                    <ImageExpand
                       src={item.progress.storyboard}
                       alt={`${item.title} storyboard`}
-                      aspectClass="aspect-[16/10]"
-                      objectFit="contain"
-                    />
+                      className="rounded-2xl"
+                    >
+                      <BlendImage
+                        src={item.progress.storyboard}
+                        alt={`${item.title} storyboard`}
+                        aspectClass="aspect-[16/10]"
+                        objectFit="contain"
+                      />
+                    </ImageExpand>
                   </ScrollReveal>
                 )}
               {item.progress.video && !isPlaceholderMedia(item.progress.video) && (

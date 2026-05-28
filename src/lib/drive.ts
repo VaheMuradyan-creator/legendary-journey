@@ -56,3 +56,20 @@ export function driveThumbnailUrl(urlOrId: string, size = 1200): string {
   if (!id) return urlOrId;
   return `https://drive.google.com/thumbnail?id=${id}&sz=w${size}`;
 }
+
+/** High-resolution URL for fullscreen lightbox. */
+export function driveFullImageUrl(urlOrId: string): string {
+  const id = extractDriveId(urlOrId);
+  if (!id) return urlOrId;
+  return `https://drive.google.com/thumbnail?id=${id}&sz=w2560`;
+}
+
+export function resolveImageUrl(
+  urlOrId: string,
+  size: "thumb" | "full" | "view" = "view"
+): string {
+  if (!extractDriveId(urlOrId)) return urlOrId;
+  if (size === "thumb") return driveThumbnailUrl(urlOrId, 1200);
+  if (size === "full") return driveFullImageUrl(urlOrId);
+  return driveImageUrl(urlOrId);
+}

@@ -124,6 +124,14 @@ body {
   scrollbar-color: color-mix(in srgb, var(--accent) 50%, transparent) transparent;
 }
 
+/* Let tap-to-expand work inside horizontal scroll rows */
+.gallery-track [data-image-expand] {
+  touch-action: manipulation;
+  scroll-snap-align: center;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .gallery-track::-webkit-scrollbar {
   height: 6px;
 }

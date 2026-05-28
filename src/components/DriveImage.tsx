@@ -2,33 +2,33 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { driveImageUrl, driveThumbnailUrl, extractDriveId } from "@/lib/drive";
+import { resolveImageUrl, extractDriveId } from "@/lib/drive";
 
 type DriveImageProps = {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 };
 
-export function DriveImage({ src, alt, className, priority }: DriveImageProps) {
-  const [useFallback, setUseFallback] = useState(false);
+export function DriveImage({
+  src,
+  alt,
+  className,
+  priority,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+}: DriveImageProps) {
+  const [urlIndex, setUrlIndex] = useState(0);
   const isDrive = Boolean(extractDriveId(src));
-  const primary = isDrive ? driveThumbnailUrl(src) : src;
-  const fallback = isDrive ? driveImageUrl(src) : src;
-
-  if (!isDrive) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        className={className}
-        loading={priority ? "eager" : "lazy"}
-      />
-    );
-  }
-
-  const url = useFallback ? fallback : primary;
+  const urls = isDrive
+    ? [
+        resolveImageUrl(src, "thumb"),
+        resolveImageUrl(src, "view"),
+        resolveImageUrl(src, "full"),
+      ]
+    : [src];
+  const url = urls[Math.min(urlIndex, urls.length - 1)];
 
   return (
     <Image
@@ -36,11 +36,14 @@ export function DriveImage({ src, alt, className, priority }: DriveImageProps) {
       alt={alt}
       fill
       className={className}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      sizes={sizes}
       priority={priority}
       unoptimized
+      draggable={false}
       onError={() => {
-        if (!useFallback) setUseFallback(true);
+        if (urlIndex < urls.length - 1) {
+          setUrlIndex((i) => i + 1);
+        }
       }}
     />
   );
