@@ -22,7 +22,7 @@ export function PortfolioView({ portfolio, mode = "full" }: PortfolioViewProps) 
   const animationCount = countFilledAnimations(portfolio);
   const visibleAnimations = portfolio.animations.filter(animationHasContent);
 
-  const showArt = mode === "full";
+  const showArt = mode === "full" || mode === "animation";
   const showAnimation = mode === "full" || mode === "animation";
 
   const activeNav = mode === "animation" ? "/animation" : "/";
@@ -78,14 +78,40 @@ export function PortfolioView({ portfolio, mode = "full" }: PortfolioViewProps) 
           )}
 
           {mode === "animation" && (
-            <ScrollReveal delay={150}>
-              <p className="mt-6 max-w-xl text-lg text-muted">
-                Motion & film — {animationCount} animations with process materials.
-              </p>
-            </ScrollReveal>
+            <>
+              <ScrollReveal delay={150}>
+                <p className="mt-6 max-w-xl text-lg text-muted">
+                  {portfolio.subtitle}
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={220}>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <span className="rounded-full border border-white/10 bg-card px-4 py-2 text-sm backdrop-blur-md">
+                    {drawingCount} pictures &amp; artworks
+                  </span>
+                  <span className="rounded-full border border-white/10 bg-card px-4 py-2 text-sm backdrop-blur-md">
+                    {animationCount} animations
+                  </span>
+                </div>
+              </ScrollReveal>
+              <nav className="mt-10 flex flex-wrap gap-6">
+                <a
+                  href="#work"
+                  className="font-display text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent-glow)] transition hover:text-foreground"
+                >
+                  Pictures ↓
+                </a>
+                <a
+                  href="#animations"
+                  className="font-display text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent-cool)] transition hover:text-foreground"
+                >
+                  Films ↓
+                </a>
+              </nav>
+            </>
           )}
 
-          {mode === "full" &&
+          {(mode === "full" || mode === "animation") &&
             portfolio.coverImage &&
             !isPlaceholderMedia(portfolio.coverImage) && (
               <ScrollReveal delay={400} className="mt-12 max-w-4xl">
@@ -141,6 +167,19 @@ export function PortfolioView({ portfolio, mode = "full" }: PortfolioViewProps) 
 
       {showArt && (
         <main id="work" className="relative">
+          {mode === "animation" && portfolio.drawingSections.length > 0 && (
+            <div className="mx-auto max-w-6xl px-6 pt-12">
+              <ScrollReveal>
+                <p className="text-sm font-semibold uppercase tracking-[0.4em] text-[var(--accent-glow)]">
+                  Design &amp; drawing
+                </p>
+                <h2 className="text-3d mt-4 text-4xl md:text-5xl">Pictures</h2>
+                <p className="mt-3 max-w-2xl text-muted">
+                  Original artwork — character design, drawing, backgrounds, and more.
+                </p>
+              </ScrollReveal>
+            </div>
+          )}
           {portfolio.drawingSections.map((section, sectionIndex) => (
             <section
               key={section.id}
@@ -193,9 +232,7 @@ export function PortfolioView({ portfolio, mode = "full" }: PortfolioViewProps) 
       {showAnimation && (
         <section
           id="animations"
-          className={`scroll-mt-20 border-t border-white/10 px-6 py-20 md:px-8 md:py-28 ${
-            mode === "animation" ? "pt-8" : ""
-          }`}
+          className="scroll-mt-20 border-t border-white/10 px-6 py-20 md:px-8 md:py-28"
         >
           <div className="mx-auto max-w-6xl">
             <ScrollReveal>
