@@ -1,9 +1,8 @@
 import Link from "next/link";
 
 const LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/art-structure", label: "Art structure" },
-  { href: "/animation", label: "Animation" },
+  { href: "/animation", label: "Animation Portfolio" },
+  { href: "/art-structure", label: "Art Structure" },
 ] as const;
 
 export function SiteNav({ active }: { active?: (typeof LINKS)[number]["href"] }) {

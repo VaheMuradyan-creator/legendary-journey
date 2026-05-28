@@ -2,6 +2,7 @@
 
 import type { ArtworkItem } from "@/lib/portfolio";
 import { BlendImage } from "@/components/BlendImage";
+import { ImageExpand } from "@/components/ImageExpand";
 import { isPlaceholderMedia } from "@/lib/drive";
 
 export function ArtworkCard({ item, index = 0 }: { item: ArtworkItem; index?: number }) {
@@ -24,26 +25,35 @@ export function ArtworkCard({ item, index = 0 }: { item: ArtworkItem; index?: nu
 
         {images.length === 0 && (
           <div className="relative flex aspect-[4/3] items-center justify-center rounded-[1.35rem] bg-black/40 p-8 text-center text-sm text-muted">
-            Add Google Drive link in content/mine.json
+            Add image in Portfolio Studio
           </div>
         )}
 
         {images.length === 1 && (
-          <div className="relative overflow-visible rounded-[1.35rem]">
+          <ImageExpand
+            src={images[0]}
+            alt={item.title}
+            className="rounded-[1.35rem]"
+          >
             <BlendImage src={images[0]} alt={item.title} aspectClass="aspect-[4/3]" />
-          </div>
+          </ImageExpand>
         )}
 
         {images.length > 1 && (
           <div className="grid grid-cols-2 gap-1 rounded-[1.35rem] p-1">
             {images.map((src, i) => (
-              <div key={`${item.title}-${i}`} className="overflow-visible rounded-2xl">
+              <ImageExpand
+                key={`${item.title}-${i}`}
+                src={src}
+                alt={`${item.title} ${i + 1}`}
+                className="overflow-visible rounded-2xl"
+              >
                 <BlendImage
                   src={src}
                   alt={`${item.title} ${i + 1}`}
                   aspectClass="aspect-square"
                 />
-              </div>
+              </ImageExpand>
             ))}
           </div>
         )}

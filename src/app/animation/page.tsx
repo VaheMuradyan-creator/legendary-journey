@@ -16,5 +16,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AnimationPage() {
   const data = await loadPortfolio();
   const portfolio = toPortfolio(data);
-  return <PortfolioView portfolio={portfolio} mode="animation" />;
+  return <PortfolioView portfolio={portfolio} />;
 }

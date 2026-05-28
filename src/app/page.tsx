@@ -1,20 +1,5 @@
-import type { Metadata } from "next";
-import { PortfolioView } from "@/components/PortfolioView";
-import { toPortfolio } from "@/lib/portfolio";
-import { loadPortfolio } from "@/lib/storage";
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await loadPortfolio();
-  return {
-    title: `${data.name} — Animation Portfolio`,
-    description: data.subtitle,
-  };
-}
-
-export default async function HomePage() {
-  const data = await loadPortfolio();
-  const portfolio = toPortfolio(data);
-  return <PortfolioView portfolio={portfolio} />;
+export default function HomePage() {
+  redirect("/animation");
 }

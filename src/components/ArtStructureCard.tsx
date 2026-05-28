@@ -2,6 +2,7 @@
 
 import type { ArtStructureWork } from "@/lib/portfolio";
 import { BlendImage } from "@/components/BlendImage";
+import { ImageExpand } from "@/components/ImageExpand";
 import { isPlaceholderMedia } from "@/lib/drive";
 
 export function ArtStructureCard({
@@ -33,24 +34,30 @@ export function ArtStructureCard({
         )}
 
         {mainImage && (
-          <div className="relative overflow-visible rounded-[1.35rem]">
-            <p className="absolute left-4 top-4 z-10 rounded-full bg-black/50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/90">
-              Full view
-            </p>
+          <ImageExpand
+            src={mainImage}
+            alt={work.title}
+            className="rounded-[1.35rem]"
+          >
             <BlendImage src={mainImage} alt={work.title} aspectClass="aspect-[4/3]" />
-          </div>
+          </ImageExpand>
         )}
 
         {details.length > 0 && (
           <div className="mt-2 grid grid-cols-2 gap-1 px-1">
             {details.map((src, i) => (
-              <div key={`${work.id}-detail-${i}`} className="overflow-visible rounded-2xl">
+              <ImageExpand
+                key={`${work.id}-detail-${i}`}
+                src={src}
+                alt={`${work.title} detail ${i + 1}`}
+                className="overflow-visible rounded-2xl"
+              >
                 <BlendImage
                   src={src}
                   alt={`${work.title} detail ${i + 1}`}
                   aspectClass="aspect-square"
                 />
-              </div>
+              </ImageExpand>
             ))}
           </div>
         )}
@@ -62,16 +69,18 @@ export function ArtStructureCard({
             </p>
             <div className="flex gap-2 overflow-x-auto pb-2">
               {process.map((src, i) => (
-                <div
+                <ImageExpand
                   key={`${work.id}-proc-${i}`}
-                  className="relative h-24 w-32 shrink-0 overflow-visible rounded-xl"
+                  src={src}
+                  alt={`${work.title} process ${i + 1}`}
+                  className="h-24 w-32 shrink-0 overflow-visible rounded-xl"
                 >
                   <BlendImage
                     src={src}
                     alt={`${work.title} process ${i + 1}`}
                     aspectClass="aspect-[4/3] h-24 w-32"
                   />
-                </div>
+                </ImageExpand>
               ))}
             </div>
           </div>
@@ -87,7 +96,7 @@ export function ArtStructureCard({
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--accent-cool)]">
                 Artist&apos;s statement
               </p>
-              <p className="text-sm leading-relaxed text-muted whitespace-pre-wrap">
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted">
                 {work.artistStatement}
               </p>
             </div>

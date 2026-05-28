@@ -5,6 +5,7 @@ import {
 } from "@/lib/art-structure-categories";
 import { ArtStructureCard } from "@/components/ArtStructureCard";
 import { BlendImage } from "@/components/BlendImage";
+import { ImageExpand } from "@/components/ImageExpand";
 import { HeroScroll } from "@/components/HeroScroll";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -34,9 +35,9 @@ export function ArtStructureView({ portfolio }: { portfolio: ArtStructurePortfol
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-              Best work grouped by material and theme — full views, detail shots, and
-              artist&apos;s statements. Class minimum: {ART_STRUCTURE_MIN_ARTWORKS}{" "}
-              artworks, {ARTIST_STATEMENTS_REQUIRED} with writing.
+              Best work grouped by material and theme. Tap any image for full screen.
+              Class minimum: {ART_STRUCTURE_MIN_ARTWORKS} artworks,{" "}
+              {ARTIST_STATEMENTS_REQUIRED} with writing.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={220}>
@@ -52,12 +53,14 @@ export function ArtStructureView({ portfolio }: { portfolio: ArtStructurePortfol
           </ScrollReveal>
           {cover && (
             <ScrollReveal delay={320} className="mt-10 max-w-4xl">
-              <BlendImage
-                src={cover}
-                alt="Art structure cover"
-                aspectClass="aspect-[21/9] max-h-72"
-                priority
-              />
+              <ImageExpand src={cover} alt="Art structure cover" className="rounded-2xl">
+                <BlendImage
+                  src={cover}
+                  alt="Art structure cover"
+                  aspectClass="aspect-[21/9] max-h-72"
+                  priority
+                />
+              </ImageExpand>
             </ScrollReveal>
           )}
         </div>
@@ -95,7 +98,7 @@ export function ArtStructureView({ portfolio }: { portfolio: ArtStructurePortfol
                 ))}
               </div>
               <p className="mx-auto mt-2 max-w-6xl px-6 text-center text-xs text-muted md:text-left">
-                ← Scroll sideways — full view, details, and statements per piece →
+                ← Scroll sideways · tap image for full screen →
               </p>
             </ScrollReveal>
           </section>

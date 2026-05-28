@@ -47,7 +47,7 @@ export function AdminShell({
           </div>
           <div className="flex flex-wrap gap-2">
             <a
-              href="/"
+              href="/animation"
               target="_blank"
               rel="noreferrer"
               className="rounded-lg border border-white/15 px-4 py-2 text-sm hover:border-[#ff6b4a]"
